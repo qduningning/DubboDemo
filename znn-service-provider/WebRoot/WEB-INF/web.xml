@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.5" 
+	xmlns="http://java.sun.com/xml/ns/javaee" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
+	http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+	
+	<!--初始化spring上下文 -->
+	 <listener>  
+      <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>  
+  </listener>
+ 
+	<!-- 阿里巴巴druid数据源相关配置 -->
+	<servlet>
+		<servlet-name>DruidStatView</servlet-name>
+		<servlet-class>com.alibaba.druid.support.http.StatViewServlet</servlet-class>
+		<init-param>
+			<!--
+				在StatViewSerlvet输出的html页面中，有一个功能是Reset
+				All，执行这个操作之后，会导致所有计数器清零，重新计数。你可以通过配置参数关闭它。
+			-->
+			<param-name>resetEnable</param-name>
+			<param-value>false</param-value>
+		</init-param>
+	</servlet>
+	<!-- 数据源监控地址[严控路径访问权限]：http://localhost:8080/hw-service-provider/druid/index.html   -->
+	<servlet-mapping>
+		<servlet-name>DruidStatView</servlet-name>
+		<url-pattern>/druid/*</url-pattern>
+	</servlet-mapping>
+</web-app>
